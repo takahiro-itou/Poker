@@ -9,6 +9,9 @@ exit 0;
 #include    <iostream>
 #include    <ostream>
 
+typedef     CombinationGenerator<52, 7>     CardPatternGenerator;
+typedef     CardPatternGenerator::Pattern   CardPatternBuffer;
+
 constexpr   int     MAX_BUF = 16;
 
 std::ostream  &
@@ -22,16 +25,15 @@ showCards(const int buf[], const int R, std::ostream & os)
 
 int main(int argc, char * argv[])
 {
-    CombinationGenerator<52, 7> comb;
+    CardPatternGenerator    comb;
 
     int counter = 0;
-    int buf[MAX_BUF];
 
     int total = 133784560;
     comb.resetGenerator();
     do {
         ++ counter;
-        comb.getCurrent(buf);
+        const  CardPatternBuffer  & buf = comb.getCurrent();
 
 #if 0
         std::cout   <<  counter
