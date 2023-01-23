@@ -121,6 +121,11 @@ CombinationGenerator<N, R, FIRST>::generateNext()
     return ( true );
 }
 
+//========================================================================
+//
+//    Accessors.
+//
+
 //----------------------------------------------------------------
 //    現在のパターンをコピーする。
 //
@@ -136,10 +141,16 @@ CombinationGenerator<N, R, FIRST>::getCurrent(int (& buf)[K])  const
     }
 }
 
-//========================================================================
+//----------------------------------------------------------------
+//    現在のパターンを取得する。
 //
-//    Accessors.
-//
+
+template <int N, int R, int FIRST>
+inline  const   typename  CombinationGenerator<N, R, FIRST>::Pattern  &
+CombinationGenerator<N, R, FIRST>::getCurrent()  const
+{
+    return ( this->m_buf );
+}
 
 //========================================================================
 //
