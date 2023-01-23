@@ -147,4 +147,7 @@ public:
     friend  class   CombinationGeneratorTest;
 };
 
+//  Implementation.
+#include    "CombinationGenerator.inl"
+
 #endif
