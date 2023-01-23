@@ -128,7 +128,7 @@ CombinationGenerator<N, R, FIRST>::generateNext()
 template <int N, int R, int FIRST>
 template <int K>
 inline  void
-CombinationGenerator<N, R, FIRST>::getCurrent(int (& buf)[K])
+CombinationGenerator<N, R, FIRST>::getCurrent(int (& buf)[K])  const
 {
     static_assert(R <= K, "The size of buffer is too small.");
     for ( int i = 0; i < R; ++ i ) {
