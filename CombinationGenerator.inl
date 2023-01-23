@@ -89,6 +89,9 @@ template <int N, int R, int FIRST>
 inline  void
 CombinationGenerator<N, R, FIRST>::resetGenerator()
 {
+    for ( int i = 0; i < R; ++ i ) {
+        this->m_buf[i]  = FIRST + i;
+    }
 }
 
 //----------------------------------------------------------------
@@ -99,6 +102,23 @@ template <int N, int R, int FIRST>
 inline  bool
 CombinationGenerator<N, R, FIRST>::generateNext()
 {
+    int pos;
+    for ( pos = R; pos >= 1; -- pos ) {
+        const  int  endVal  = (FIRST + N) - (R - pos);
+        if ( (++ this->m_buf[pos - 1]) < endVal ) {
+            break;
+        }
+    }
+
+    if ( pos == 0 ) {
+        return ( false );
+    }
+
+    for ( int i = pos; i < R; ++ i ) {
+        this->m_buf[i]  = this->m_buf[i - 1] + 1;
+    }
+
+    return ( true );
 }
 
 //----------------------------------------------------------------
@@ -110,6 +130,10 @@ template <int K>
 inline  void
 CombinationGenerator<N, R, FIRST>::getCurrent(int (& buf)[K])
 {
+    static_assert(R <= K, "The size of buffer is too small.");
+    for ( int i = 0; i < R; ++ i ) {
+        buf[i]  = this->m_buf[i];
+    }
 }
 
 //========================================================================
