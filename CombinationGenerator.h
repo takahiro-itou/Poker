@@ -38,6 +38,9 @@ class  CombinationGenerator
 //
 //    Internal Type Definitions.
 //
+public:
+
+    typedef     int     Pattern[R];
 
 //========================================================================
 //
@@ -121,6 +124,10 @@ public:
 //
 //    Member Variables.
 //
+private:
+
+    /**   現在のパターン。  **/
+    int     m_buf[R];
 
 //========================================================================
 //
