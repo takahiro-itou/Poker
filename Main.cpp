@@ -9,10 +9,11 @@ exit 0;
 #include    <iostream>
 #include    <ostream>
 
+constexpr   int     MAX_BUF = 16;
+constexpr   int     NUM_HAND_CARDS  = 5;
+
 typedef     CombinationGenerator<52, 7>     CardPatternGenerator;
 typedef     CardPatternGenerator::Pattern   CardPatternBuffer;
-
-constexpr   int     MAX_BUF = 16;
 
 enum PokerHand
 {
@@ -26,6 +27,13 @@ enum PokerHand
     FOUR_OF_A_KIND  = 64,
     ROYAL_FLUSH     = 128,
 };
+
+PokerHand  checkHand(const int (& buf)[NUM_HAND_CARDS])
+{
+    PokerHand   ph;
+
+    return ( ph );
+}
 
 std::ostream  &
 showCards(const int buf[], const int R, std::ostream & os)
