@@ -30,8 +30,24 @@ enum PokerHand
     ROYAL_FLUSH     = 256,
 };
 
+PokerHand  checkNumbers(const int &(buckets)[13])
+{
+}
+
 PokerHand  checkHand(const int (& buf)[NUM_HAND_CARDS])
 {
+    //  バケットソートを行う。  //
+    int buckets[13] = { 0 };
+    int suits[4] = { 0, 0, 0, 0 };
+
+    for ( int i = 0; i < NUM_HAND_CARDS; ++ i ) {
+        const int   card = buf[i] - 1;
+        ++ buckets[card % 13];
+        ++ suits  [card / 13];
+    }
+
+    PokerHand   phPairs = checkNumbers(buckets);
+
     PokerHand   ph;
 
     return ( ph );
