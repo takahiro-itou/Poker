@@ -17,15 +17,17 @@ typedef     CardPatternGenerator::Pattern   CardPatternBuffer;
 
 enum PokerHand
 {
-    HICARD          = 0,
-    ONE_PAIR        = 1,
-    TWO_PAIR        = 2,
-    THREE_OF_A_KIND = 4,
-    STRAIGHT        = 8,
-    FLUSH           = 16,
-    FULL_HOUSE      = 32,
-    FOUR_OF_A_KIND  = 64,
-    ROYAL_FLUSH     = 128,
+    NO_CACHED       =  -1,
+    HICARD          =   0,
+    ONE_PAIR        =   1,
+    TWO_PAIR        =   2,
+    THREE_OF_A_KIND =   4,
+    STRAIGHT        =   8,
+    ROYAL_STRAIGHT  =  16,       //  役ではないが処理の都合で必要。  //
+    FLUSH           =  32,
+    FULL_HOUSE      =  64,
+    FOUR_OF_A_KIND  = 128,
+    ROYAL_FLUSH     = 256,
 };
 
 PokerHand  checkHand(const int (& buf)[NUM_HAND_CARDS])
