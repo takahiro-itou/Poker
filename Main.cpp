@@ -127,7 +127,8 @@ showCounts(const ResultTable &table, std::ostream &os)
         <<  "\nFour Of A Kind  = "  <<  table.counter[FOUR_OF_A_KIND]
         <<  "\nFull House      = "  <<  table.counter[FULL_HOUSE]
         <<  "\nFlush           = "  <<  table.counter[FLUSH]
-        <<  "\nStraight        = "  <<  table.counter[STRAIGHT]
+        <<  "\nStraight        = "
+        <<  table.counter[STRAIGHT]  + table.counter[ROYAL_STRAIGHT]
         <<  "\nThree Of A Kind = "  <<  table.counter[THREE_OF_A_KIND]
         <<  "\nTwo Pair        = "  <<  table.counter[TWO_PAIR]
         <<  "\nOne Pair        = "  <<  table.counter[ONE_PAIR]
