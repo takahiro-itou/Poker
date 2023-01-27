@@ -66,6 +66,26 @@ PokerHand  checkNumbers(const int (& buckets)[13])
         return ( ONE_PAIR );
     }
 
+    //  A-K-Q-J-10のストレートを判定。  //
+    if ( buckets[0] == 1 && buckets[9] == 1 && buckets[10] == 1
+            && buckets[11] == 1 && buckets[12] == 1 )
+    {
+        return ( ROYAL_STRAIGHT );
+    }
+    //  上記以外のストレートを判定。    //
+    int pos = 0;
+    for ( int i = 0; i < 9; ++ i ) {
+        if ( buckets[i] ) {
+            pos = i;
+            break;
+        }
+    }
+    for ( int i = pos + 1; i <= pos + 4; ++ i ) {
+        if ( buckets[i] == 0 ) {
+            return ( HICARD );
+        }
+    }
+    return ( STRAIGHT );
 }
 
 PokerHand  checkHand(const int (& buf)[NUM_HAND_CARDS])
