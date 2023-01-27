@@ -32,6 +32,40 @@ enum PokerHand
 
 PokerHand  checkNumbers(const int (& buckets)[13])
 {
+    int  pairs  = 0;
+    int  tuple  = 0;
+    int  fours  = 0;
+
+    for ( int i = 0; i < 13; ++ i ) {
+        switch ( buckets[i] ) {
+        case  2:
+            ++ pairs;
+            break;
+        case  3:
+            ++ tuple;
+            break;
+        case  4:
+            ++  fours;
+            break;
+        }
+    }
+
+    if ( fours ) {
+        return ( FOUR_OF_A_KIND );
+    }
+    if ( tuple == 1 && pairs == 1 ) {
+        return ( FULL_HOUSE );
+    }
+    if ( tuple ) {
+        return ( THREE_OF_A_KIND );
+    }
+    if ( pairs == 2 ) {
+        return ( TWO_PAIR );
+    }
+    if ( pairs == 1 ) {
+        return ( ONE_PAIR );
+    }
+
 }
 
 PokerHand  checkHand(const int (& buf)[NUM_HAND_CARDS])
