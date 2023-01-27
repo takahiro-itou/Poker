@@ -105,7 +105,22 @@ PokerHand  checkHand(const int (& buf)[NUM_HAND_CARDS])
         ++ suits  [card / 13];
     }
 
+    //  ペア及びストレートの判定。  //
     PokerHand   phPairs = checkNumbers(buckets);
+    if ( (phPairs != STRAIGHT) && (phPairs != ROYAL_STRAIGHT)
+            && (phPairs != HICARD) )
+    {
+        //  ペアができている時はフラッシュの可能性はない。  //
+        return ( phPairs );
+    }
+
+    if ( suits[0] == 5 || suits[1] == 5 || suits[2] == 5 || suits[3] == 5 )
+    {
+        if ( phPairs & ROYAL_STRAIGHT ) {
+            return ( ROYAL_FLUSH );
+        }
+        return ( static_cast<PokerHand>(phPairs | FLUSH) );
+    }
 
     return ( phPairs );
 }
