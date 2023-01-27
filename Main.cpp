@@ -30,7 +30,7 @@ enum PokerHand
     ROYAL_FLUSH     = 256,
 };
 
-PokerHand  checkNumbers(const int &(buckets)[13])
+PokerHand  checkNumbers(const int (& buckets)[13])
 {
 }
 
