@@ -162,7 +162,7 @@ findMaxHand(const int (& cardBuf)[R])
     static_assert(
             NUM_HAND_CARDS <= R,
             "The number of cards is shortage.");
-    typedef     CombinationGenerator<R, NUM_HAND_CARDS>     Combination;
+    typedef     CombinationGenerator<R, NUM_HAND_CARDS, 0>  Combination;
     typedef     typename  Combination::Pattern              CombPattern;
 
     PokerHand   phBest  = HICARD;
