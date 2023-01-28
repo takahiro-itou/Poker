@@ -8,7 +8,6 @@ exit 0;
 #include    "PokerHandChecker.h"
 
 #include    <iostream>
-#include    <ostream>
 
 constexpr   int     MAX_BUF = 16;
 
@@ -26,22 +25,6 @@ showCards(const int buf[], const int R, std::ostream & os)
     return ( os );
 }
 
-std::ostream  &
-showCounts(const ResultTable &table, std::ostream &os)
-{
-    os  <<  "\nRoyal Flush     = "  <<  table.counter[ROYAL_FLUSH]
-        <<  "\nStraight Flush  = "  <<  table.counter[STRAIGHT | FLUSH]
-        <<  "\nFour Of A Kind  = "  <<  table.counter[FOUR_OF_A_KIND]
-        <<  "\nFull House      = "  <<  table.counter[FULL_HOUSE]
-        <<  "\nFlush           = "  <<  table.counter[FLUSH]
-        <<  "\nStraight        = "
-        <<  table.counter[STRAIGHT]  + table.counter[ROYAL_STRAIGHT]
-        <<  "\nThree Of A Kind = "  <<  table.counter[THREE_OF_A_KIND]
-        <<  "\nTwo Pair        = "  <<  table.counter[TWO_PAIR]
-        <<  "\nOne Pair        = "  <<  table.counter[ONE_PAIR]
-        <<  "\nHi Card         = "  <<  table.counter[HICARD];
-    return ( os );
-}
 
 int main(int argc, char * argv[])
 {

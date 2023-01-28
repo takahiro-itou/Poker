@@ -21,6 +21,11 @@
 #if !defined( POKER_HANDS_PROB_INCLUDED_POKER_HAND_CHECKER_H )
 #    define   POKER_HANDS_PROB_INCLUDED_POKER_HAND_CHECKER_H
 
+#if !defined( POKER_HANDS_PROB_SYS_INCLUDED_OSTREAM )
+#    include    <ostream>
+#    define   POKER_HANDS_PROB_SYS_INCLUDED_OSTREAM
+#endif
+
 enum PokerHand
 {
     NO_CACHED       =  -1,
@@ -143,6 +148,28 @@ checkHand(const int (& buf)[NUM_HAND_CARDS])
     }
 
     return ( phPairs );
+}
+
+//----------------------------------------------------------------
+/**   集計結果テーブルの内容をストリームに出力する。
+**
+**/
+
+inline  std::ostream  &
+showCounts(const ResultTable &table, std::ostream &os)
+{
+    os  <<  "\nRoyal Flush     = "  <<  table.counter[ROYAL_FLUSH]
+        <<  "\nStraight Flush  = "  <<  table.counter[STRAIGHT | FLUSH]
+        <<  "\nFour Of A Kind  = "  <<  table.counter[FOUR_OF_A_KIND]
+        <<  "\nFull House      = "  <<  table.counter[FULL_HOUSE]
+        <<  "\nFlush           = "  <<  table.counter[FLUSH]
+        <<  "\nStraight        = "
+        <<  table.counter[STRAIGHT]  + table.counter[ROYAL_STRAIGHT]
+        <<  "\nThree Of A Kind = "  <<  table.counter[THREE_OF_A_KIND]
+        <<  "\nTwo Pair        = "  <<  table.counter[TWO_PAIR]
+        <<  "\nOne Pair        = "  <<  table.counter[ONE_PAIR]
+        <<  "\nHi Card         = "  <<  table.counter[HICARD];
+    return ( os );
 }
 
 #endif
