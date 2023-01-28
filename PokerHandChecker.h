@@ -234,7 +234,7 @@ countHandPatterns(
     do {
         ++ counter;
         const  CardPatternBuffer  & buf = comb.getCurrent();
-        const  PokerHand            ph  = checkHand(buf);
+        const  PokerHand            ph  = findMaxHand(buf);
         ++  results.counter[ph];
         if ( (counter & 65535) == 0 ) {
             strErr  <<  counter <<  " / "
