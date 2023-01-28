@@ -11,101 +11,11 @@ exit 0;
 #include    <ostream>
 
 constexpr   int     MAX_BUF = 16;
-constexpr   int     NUM_HAND_CARDS  = 5;
 
 typedef     CombinationGenerator<52, 5>     CardPatternGenerator;
 typedef     CardPatternGenerator::Pattern   CardPatternBuffer;
 
 
-PokerHand  checkNumbers(const int (& buckets)[13])
-{
-    int  pairs  = 0;
-    int  tuple  = 0;
-    int  fours  = 0;
-
-    for ( int i = 0; i < 13; ++ i ) {
-        switch ( buckets[i] ) {
-        case  2:
-            ++ pairs;
-            break;
-        case  3:
-            ++ tuple;
-            break;
-        case  4:
-            ++  fours;
-            break;
-        }
-    }
-
-    if ( fours ) {
-        return ( FOUR_OF_A_KIND );
-    }
-    if ( tuple == 1 && pairs == 1 ) {
-        return ( FULL_HOUSE );
-    }
-    if ( tuple ) {
-        return ( THREE_OF_A_KIND );
-    }
-    if ( pairs == 2 ) {
-        return ( TWO_PAIR );
-    }
-    if ( pairs == 1 ) {
-        return ( ONE_PAIR );
-    }
-
-    //  A-K-Q-J-10のストレートを判定。  //
-    if ( buckets[0] == 1 && buckets[9] == 1 && buckets[10] == 1
-            && buckets[11] == 1 && buckets[12] == 1 )
-    {
-        return ( ROYAL_STRAIGHT );
-    }
-    //  上記以外のストレートを判定。    //
-    int pos = 0;
-    for ( int i = 0; i < 9; ++ i ) {
-        if ( buckets[i] ) {
-            pos = i;
-            break;
-        }
-    }
-    for ( int i = pos + 1; i <= pos + 4; ++ i ) {
-        if ( buckets[i] == 0 ) {
-            return ( HICARD );
-        }
-    }
-    return ( STRAIGHT );
-}
-
-PokerHand  checkHand(const int (& buf)[NUM_HAND_CARDS])
-{
-    //  バケットソートを行う。  //
-    int buckets[13] = { 0 };
-    int suits[4] = { 0, 0, 0, 0 };
-
-    for ( int i = 0; i < NUM_HAND_CARDS; ++ i ) {
-        const int   card = buf[i] - 1;
-        ++ buckets[card % 13];
-        ++ suits  [card / 13];
-    }
-
-    //  ペア及びストレートの判定。  //
-    PokerHand   phPairs = checkNumbers(buckets);
-    if ( (phPairs != STRAIGHT) && (phPairs != ROYAL_STRAIGHT)
-            && (phPairs != HICARD) )
-    {
-        //  ペアができている時はフラッシュの可能性はない。  //
-        return ( phPairs );
-    }
-
-    if ( suits[0] == 5 || suits[1] == 5 || suits[2] == 5 || suits[3] == 5 )
-    {
-        if ( phPairs & ROYAL_STRAIGHT ) {
-            return ( ROYAL_FLUSH );
-        }
-        return ( static_cast<PokerHand>(phPairs | FLUSH) );
-    }
-
-    return ( phPairs );
-}
 
 std::ostream  &
 showCards(const int buf[], const int R, std::ostream & os)
