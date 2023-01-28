@@ -5,6 +5,7 @@ exit 0;
 #endif
 
 #include    "CombinationGenerator.h"
+#include    "PokerHandChecker.h"
 
 #include    <iostream>
 #include    <ostream>
@@ -15,25 +16,6 @@ constexpr   int     NUM_HAND_CARDS  = 5;
 typedef     CombinationGenerator<52, 5>     CardPatternGenerator;
 typedef     CardPatternGenerator::Pattern   CardPatternBuffer;
 
-enum PokerHand
-{
-    NO_CACHED       =  -1,
-    HICARD          =   0,
-    ONE_PAIR        =   1,
-    TWO_PAIR        =   2,
-    THREE_OF_A_KIND =   4,
-    STRAIGHT        =   8,
-    ROYAL_STRAIGHT  =  16,       //  役ではないが処理の都合で必要。  //
-    FLUSH           =  32,
-    FULL_HOUSE      =  64,
-    FOUR_OF_A_KIND  = 128,
-    ROYAL_FLUSH     = 256,
-};
-
-struct ResultTable
-{
-    int counter[512];
-};
 
 PokerHand  checkNumbers(const int (& buckets)[13])
 {
