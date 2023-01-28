@@ -213,11 +213,46 @@ showCounts(const ResultTable &table, std::ostream &os)
 
 template <int N>
 inline  void
-countHandPatterns()
+countHandPatterns(
+        std::ostream & strOut,
+        std::ostream & strErr)
 {
     typedef     CombinationGenerator<52, N>     CardPatternGenerator;
     typedef     typename
             CardPatternGenerator::Pattern       CardPatternBuffer;
+
+    CardPatternGenerator    comb;
+    ResultTable             results = { 0 };
+
+    int counter = 0;
+    int numPats = 1;
+    for ( int i = 1; i <= N; ++ i ) {
+        numPats = numPats * (52 + 1 - i) / i;
+    }
+
+    comb.resetGenerator();
+    do {
+        ++ counter;
+        const  CardPatternBuffer  & buf = comb.getCurrent();
+        const  PokerHand            ph  = checkHand(buf);
+        ++  results.counter[ph];
+        if ( (counter & 65535) == 0 ) {
+            strErr  <<  counter <<  " / "
+                    <<  numPats
+                    <<  " ("
+                    <<  (counter * 100.0 / numPats)
+                    <<  " %)\r";
+        }
+    } while ( comb.generateNext() );
+
+    strErr  <<  counter <<  " / "
+            <<  numPats
+            <<  " ("
+            <<  (counter * 100.0 / numPats)
+            <<  " %)\nFinish."  <<  std::endl;
+    showCounts(results, strOut) <<  std::endl;
+
+    return;
 }
 
 #endif
