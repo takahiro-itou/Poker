@@ -151,6 +151,40 @@ checkHand(const int (& buf)[NUM_HAND_CARDS])
 }
 
 //----------------------------------------------------------------
+/**   指定されたカードの組から最も高いハンドを得る。
+**
+**/
+
+template <int R>
+inline  PokerHand
+findMaxHand(const int (& cardBuf)[R])
+{
+    static_assert(
+            NUM_HAND_CARDS <= R,
+            "The number of cards is shortage.");
+    typedef     CombinationGenerator<R, NUM_HAND_CARDS>     Combination;
+    typedef     typename  Combination::Pattern              CombPattern;
+
+    PokerHand   phBest  = HICARD;
+    int         work[NUM_HAND_CARDS];
+    Combination comb;
+
+    comb.resetGenerator();
+    do {
+        const  CombPattern &pat = comb.getCurrent();
+        for ( int i = 0; i < NUM_HAND_CARDS; ++ i ) {
+            work[i] = cardBuf[pat[i]];
+        }
+        PokerHand   ph  = checkHand(work);
+        if ( phBest < ph ) {
+            phBest = ph;
+        }
+    } while ( comb.generateNext() );
+
+    return ( phBest );
+}
+
+//----------------------------------------------------------------
 /**   集計結果テーブルの内容をストリームに出力する。
 **
 **/
@@ -170,6 +204,20 @@ showCounts(const ResultTable &table, std::ostream &os)
         <<  "\nOne Pair        = "  <<  table.counter[ONE_PAIR]
         <<  "\nHi Card         = "  <<  table.counter[HICARD];
     return ( os );
+}
+
+//----------------------------------------------------------------
+/**   各ハンドのできる事象数をカウントする。
+**
+**/
+
+template <int N>
+inline  void
+countHandPatterns()
+{
+    typedef     CombinationGenerator<52, N>     CardPatternGenerator;
+    typedef     typename
+            CardPatternGenerator::Pattern       CardPatternBuffer;
 }
 
 #endif
