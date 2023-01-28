@@ -1,6 +1,7 @@
 
 #if 0
-g++ -o Poker.exe Main.cpp;
+program='Calc5';
+g++  -Wall -Werror --std=c++11  -o ${program}.exe ${program}.cpp;
 exit 0;
 #endif
 
