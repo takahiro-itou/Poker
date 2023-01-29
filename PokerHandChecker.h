@@ -150,7 +150,9 @@ checkStraight(const int (& buckets)[MAX_CARD_NUMBER])
 **/
 
 inline  PokerHand
-checkHand(const int (& buf)[NUM_HAND_CARDS])
+checkHand(
+        const int (& buf)[NUM_HAND_CARDS],
+        CacheTable * const  pCache)
 {
     //  バケットソートを行う。  //
     int buckets[MAX_CARD_NUMBER] = { 0 };
@@ -190,7 +192,9 @@ checkHand(const int (& buf)[NUM_HAND_CARDS])
 
 template <int R>
 inline  PokerHand
-findMaxHand(const int (& cardBuf)[R])
+findMaxHand(
+        const int (& cardBuf)[R],
+        CacheTable * const  pCache)
 {
     static_assert(
             NUM_HAND_CARDS <= R,
@@ -208,7 +212,7 @@ findMaxHand(const int (& cardBuf)[R])
         for ( int i = 0; i < NUM_HAND_CARDS; ++ i ) {
             work[i] = cardBuf[pat[i]];
         }
-        PokerHand   ph  = checkHand(work);
+        PokerHand   ph  = checkHand(work, pCache);
         if ( phBest < ph ) {
             phBest = ph;
         }
@@ -269,7 +273,8 @@ template <int N>
 inline  void
 countHandPatterns(
         std::ostream & strOut,
-        std::ostream & strErr)
+        std::ostream & strErr,
+        CacheTable   * tblCache = nullptr)
 {
     typedef     CombinationGenerator<52, N>     CardPatternGenerator;
     typedef     typename
@@ -288,7 +293,7 @@ countHandPatterns(
     do {
         ++ counter;
         const  CardPatternBuffer  & buf = comb.getCurrent();
-        const  PokerHand            ph  = findMaxHand(buf);
+        const  PokerHand    ph  = findMaxHand(buf, tblCache);
         ++  results.counter[ph];
         if ( (counter & 65535) == 0 ) {
             strErr  <<  counter <<  " / "
