@@ -1,0 +1,38 @@
+---------- フロップ ----------
+
+Royal Flush     = 4
+Straight Flush  = 36
+Four Of A Kind  = 624
+Full House      = 3744
+Flush           = 5108
+Straight        = 10200
+Three Of A Kind = 54912
+Two Pair        = 123552
+One Pair        = 1098240
+Hi Card         = 1302540
+
+----------  ターン  ----------
+
+Royal Flush     = 188
+Straight Flush  = 1656
+Four Of A Kind  = 14664
+Full House      = 165984
+Flush           = 205792
+Straight        = 361620
+Three Of A Kind = 732160
+Two Pair        = 2532816
+One Pair        = 9730740
+Hi Card         = 6612900
+
+----------  リバー  ----------
+
+Royal Flush     = 4324
+Straight Flush  = 37260
+Four Of A Kind  = 224848
+Full House      = 3473184
+Flush           = 4047644
+Straight        = 6180020
+Three Of A Kind = 6461620
+Two Pair        = 31433400
+One Pair        = 58627800
+Hi Card         = 23294460
