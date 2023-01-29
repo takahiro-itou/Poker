@@ -161,12 +161,6 @@ checkHand(const int (& buf)[NUM_HAND_CARDS])
 
     //  ストレートの判定。  //
     phPairs = checkStraight(buckets);
-    if ( (phPairs != STRAIGHT) && (phPairs != ROYAL_STRAIGHT)
-            && (phPairs != HICARD) )
-    {
-        //  ペアができている時はフラッシュの可能性はない。  //
-        return ( phPairs );
-    }
 
     if ( suits[0] == 5 || suits[1] == 5 || suits[2] == 5 || suits[3] == 5 )
     {
