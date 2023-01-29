@@ -58,6 +58,8 @@ enum CardNumber {
     MAX_CARD_NUMBER,
 };
 
+constexpr   int     NUM_DECK_CARDS  = NUM_SUITS * MAX_CARD_NUMBER;
+
 //----------------------------------------------------------------
 /**   ペアの判定をする。
 **
@@ -205,6 +207,16 @@ findMaxHand(const int (& cardBuf)[R])
     } while ( comb.generateNext() );
 
     return ( phBest );
+}
+
+//----------------------------------------------------------------
+/**   キャッシュテーブルを初期化する。
+**
+**/
+
+inline  void
+initializeCacheTable()
+{
 }
 
 //----------------------------------------------------------------
