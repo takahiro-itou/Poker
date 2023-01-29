@@ -60,6 +60,14 @@ enum CardNumber {
 
 constexpr   int     NUM_DECK_CARDS  = NUM_SUITS * MAX_CARD_NUMBER;
 
+struct  CacheTable
+{
+    PokerHand   hands[NUM_DECK_CARDS][NUM_DECK_CARDS][NUM_DECK_CARDS]
+                     [NUM_DECK_CARDS][NUM_DECK_CARDS];
+};
+
+CacheTable  g_tableCache;
+
 //----------------------------------------------------------------
 /**   ペアの判定をする。
 **
@@ -217,6 +225,17 @@ findMaxHand(const int (& cardBuf)[R])
 inline  void
 initializeCacheTable()
 {
+    for ( int c0 = 0; c0 < NUM_DECK_CARDS; ++ c0 ) {
+    for ( int c1 = 0; c1 < NUM_DECK_CARDS; ++ c1 ) {
+    for ( int c2 = 0; c2 < NUM_DECK_CARDS; ++ c2 ) {
+    for ( int c3 = 0; c3 < NUM_DECK_CARDS; ++ c3 ) {
+    for ( int c4 = 0; c4 < NUM_DECK_CARDS; ++ c4 ) {
+        g_tableCache.hands[c0][c1][c2][c3][c4] = NO_CACHED;
+    }
+    }
+    }
+    }
+    }
 }
 
 //----------------------------------------------------------------
