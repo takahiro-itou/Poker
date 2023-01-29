@@ -13,6 +13,6 @@ exit 0;
 int main(int argc, char * argv[])
 {
     initializeCacheTable();
-    countHandPatterns<6>(std::cout, std::cerr);
+    countHandPatterns<6>(std::cout, std::cerr, &g_tableCache);
     return ( 0 );
 }
