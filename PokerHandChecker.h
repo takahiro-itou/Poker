@@ -48,13 +48,14 @@ struct ResultTable
 
 constexpr   int     NUM_HAND_CARDS  = 5;
 
+
 //----------------------------------------------------------------
-/**   ペア系とストレートの判定をする。
+/**   ペアの判定をする。
 **
 **/
 
 inline  PokerHand
-checkNumbers(const int (& buckets)[13])
+checkPairs(const int (& buckets)[13])
 {
     int  pairs  = 0;
     int  tuple  = 0;
@@ -89,6 +90,18 @@ checkNumbers(const int (& buckets)[13])
     if ( pairs == 1 ) {
         return ( ONE_PAIR );
     }
+
+    return ( HICARD );
+}
+
+//----------------------------------------------------------------
+/**   ペア系とストレートの判定をする。
+**
+**/
+
+inline  PokerHand
+checkNumbers(const int (& buckets)[13])
+{
 
     //  A-K-Q-J-10のストレートを判定。  //
     if ( buckets[0] == 1 && buckets[9] == 1 && buckets[10] == 1
@@ -130,8 +143,15 @@ checkHand(const int (& buf)[NUM_HAND_CARDS])
         ++ suits  [card / 13];
     }
 
+    //  ペア系の判定。  //
+    PokerHand   phPairs = checkPairs(buckets);
+    if ( phPairs != HICARD ) {
+        //  ペアができている時はフラッシュの可能性はない。  //
+        return ( phPairs );
+    }
+
     //  ペア及びストレートの判定。  //
-    PokerHand   phPairs = checkNumbers(buckets);
+    phPairs = checkNumbers(buckets);
     if ( (phPairs != STRAIGHT) && (phPairs != ROYAL_STRAIGHT)
             && (phPairs != HICARD) )
     {
