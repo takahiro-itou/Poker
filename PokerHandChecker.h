@@ -104,12 +104,12 @@ checkPairs(const int (& buckets)[MAX_CARD_NUMBER])
 }
 
 //----------------------------------------------------------------
-/**   ペア系とストレートの判定をする。
+/**   ストレートの判定をする。
 **
 **/
 
 inline  PokerHand
-checkNumbers(const int (& buckets)[MAX_CARD_NUMBER])
+checkStraight(const int (& buckets)[MAX_CARD_NUMBER])
 {
 
     //  A-K-Q-J-10のストレートを判定。  //
@@ -159,8 +159,8 @@ checkHand(const int (& buf)[NUM_HAND_CARDS])
         return ( phPairs );
     }
 
-    //  ペア及びストレートの判定。  //
-    phPairs = checkNumbers(buckets);
+    //  ストレートの判定。  //
+    phPairs = checkStraight(buckets);
     if ( (phPairs != STRAIGHT) && (phPairs != ROYAL_STRAIGHT)
             && (phPairs != HICARD) )
     {
