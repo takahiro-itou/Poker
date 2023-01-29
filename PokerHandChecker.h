@@ -151,19 +151,8 @@ checkStraight(const int (& buckets)[MAX_CARD_NUMBER])
 
 inline  PokerHand
 checkHand(
-        const int (& buf)[NUM_HAND_CARDS],
-        CacheTable * const  pCache)
+        const int (& buf)[NUM_HAND_CARDS])
 {
-    //  キャッシュにデータがあればそれを返す。  //
-    PokerHand * pCacheEntry = nullptr;
-    if ( pCache != nullptr ) {
-        pCacheEntry = pCache->hands[buf[0]][buf[1]][buf[2]][buf[3]] + buf[4];
-        const   PokerHand   cv  = (* pCacheEntry);
-        if ( cv != NO_CACHED ) {
-            return ( cv );
-        }
-    }
-
     //  バケットソートを行う。  //
     int buckets[MAX_CARD_NUMBER] = { 0 };
     int suits[NUM_SUITS] = { 0, 0, 0, 0 };
@@ -196,6 +185,36 @@ checkHand(
 }
 
 //----------------------------------------------------------------
+/**   ポーカーハンドを判定する。
+**
+**/
+
+inline  PokerHand
+checkHandWithCache(
+        const int (& buf)[NUM_HAND_CARDS],
+        CacheTable * const  pCache)
+{
+    //  キャッシュにデータがあればそれを返す。  //
+    PokerHand * pCacheEntry = nullptr;
+    if ( pCache != nullptr ) {
+        pCacheEntry = pCache->hands[buf[0]][buf[1]][buf[2]][buf[3]] + buf[4];
+        const   PokerHand   cv  = (* pCacheEntry);
+        if ( cv != NO_CACHED ) {
+            return ( cv );
+        }
+    }
+
+    //  役の判定を実行して結果を得る。  //
+    const   PokerHand   ph  = checkHand(buf);
+
+    //  結果をキャッシュしてから返す。  //
+    if ( pCacheEntry != nullptr ) {
+        (* pCacheEntry) = ph;
+    }
+    return ( ph );
+}
+
+//----------------------------------------------------------------
 /**   指定されたカードの組から最も高いハンドを得る。
 **
 **/
@@ -222,7 +241,7 @@ findMaxHand(
         for ( int i = 0; i < NUM_HAND_CARDS; ++ i ) {
             work[i] = cardBuf[pat[i]];
         }
-        PokerHand   ph  = checkHand(work, pCache);
+        PokerHand   ph  = checkHandWithCache(work, pCache);
         if ( phBest < ph ) {
             phBest = ph;
         }
