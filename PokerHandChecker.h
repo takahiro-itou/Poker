@@ -47,7 +47,16 @@ struct ResultTable
 };
 
 constexpr   int     NUM_HAND_CARDS  = 5;
+constexpr   int     NUM_SUITS       = 4;
 
+enum CardNumber {
+    ACE     = 0,
+    TEN     = 9,
+    JACK    = 10,
+    QUEEN   = 11,
+    KING    = 12,
+    MAX_CARD_NUMBER,
+};
 
 //----------------------------------------------------------------
 /**   ペアの判定をする。
@@ -55,13 +64,13 @@ constexpr   int     NUM_HAND_CARDS  = 5;
 **/
 
 inline  PokerHand
-checkPairs(const int (& buckets)[13])
+checkPairs(const int (& buckets)[MAX_CARD_NUMBER])
 {
     int  pairs  = 0;
     int  tuple  = 0;
     int  fours  = 0;
 
-    for ( int i = 0; i < 13; ++ i ) {
+    for ( int i = 0; i < MAX_CARD_NUMBER; ++ i ) {
         switch ( buckets[i] ) {
         case  2:
             ++ pairs;
@@ -100,7 +109,7 @@ checkPairs(const int (& buckets)[13])
 **/
 
 inline  PokerHand
-checkNumbers(const int (& buckets)[13])
+checkNumbers(const int (& buckets)[MAX_CARD_NUMBER])
 {
 
     //  A-K-Q-J-10のストレートを判定。  //
@@ -134,13 +143,13 @@ inline  PokerHand
 checkHand(const int (& buf)[NUM_HAND_CARDS])
 {
     //  バケットソートを行う。  //
-    int buckets[13] = { 0 };
-    int suits[4] = { 0, 0, 0, 0 };
+    int buckets[MAX_CARD_NUMBER] = { 0 };
+    int suits[NUM_SUITS] = { 0, 0, 0, 0 };
 
     for ( int i = 0; i < NUM_HAND_CARDS; ++ i ) {
         const int   card = buf[i] - 1;
-        ++ buckets[card % 13];
-        ++ suits  [card / 13];
+        ++ buckets[card % MAX_CARD_NUMBER];
+        ++ suits  [card / MAX_CARD_NUMBER];
     }
 
     //  ペア系の判定。  //
