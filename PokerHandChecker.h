@@ -121,10 +121,9 @@ checkPairs(const int (& buckets)[MAX_CARD_NUMBER])
 inline  PokerHand
 checkStraight(const int (& buckets)[MAX_CARD_NUMBER])
 {
-
     //  A-K-Q-J-10のストレートを判定。  //
-    if ( buckets[0] == 1 && buckets[9] == 1 && buckets[10] == 1
-            && buckets[11] == 1 && buckets[12] == 1 )
+    if ( buckets[ACE] == 1 && buckets[TEN] == 1 && buckets[JACK] == 1
+            && buckets[QUEEN] == 1 && buckets[KING] == 1 )
     {
         return ( ROYAL_STRAIGHT );
     }
@@ -136,7 +135,7 @@ checkStraight(const int (& buckets)[MAX_CARD_NUMBER])
             break;
         }
     }
-    for ( int i = pos + 1; i <= pos + 4; ++ i ) {
+    for ( int i = pos + 1; i < pos + NUM_HAND_CARDS; ++ i ) {
         if ( buckets[i] == 0 ) {
             return ( HICARD );
         }
