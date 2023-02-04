@@ -396,6 +396,7 @@ countHandPatterns(
             <<  (counter * 100.0 / numPats)
             <<  " %)\nFinish."  <<  std::endl;
     showCounts(results, strOut) <<  std::endl;
+    showDetail(retCand, strOut) <<  std::endl;
 
     return;
 }
