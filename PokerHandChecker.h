@@ -296,6 +296,55 @@ showCounts(const ResultTable &table, std::ostream &os)
         <<  "\nTwo Pair        = "  <<  table.counter[TWO_PAIR]
         <<  "\nOne Pair        = "  <<  table.counter[ONE_PAIR]
         <<  "\nHi Card         = "  <<  table.counter[HICARD];
+
+    return ( os );
+}
+
+//----------------------------------------------------------------
+/**   集計結果テーブルの内容をストリームに出力する。
+**
+**/
+
+inline  std::ostream  &
+showDetail(const ResultTable &table, std::ostream &os)
+{
+    constexpr  int  TABLE_SIZE
+            = sizeof(table.counter) / sizeof(table.counter[0]);
+
+    for ( int i = 1; i < TABLE_SIZE; ++ i ) {
+        if ( table.counter[i] == 0 ) { continue; }
+
+        os  <<  i   <<  "\t = " <<  table.counter[i]
+            <<  "\t";
+        if ( i & ROYAL_FLUSH ) {
+            os  <<  "RF,";
+        }
+        if ( i & FOUR_OF_A_KIND ) {
+            os  <<  "4K,";
+            }
+        if ( i & FULL_HOUSE ) {
+            os  <<  "FH,";
+        }
+        if ( i & FLUSH ) {
+            os  <<  "FL,";
+        }
+        if ( i & ROYAL_STRAIGHT ) {
+            os  <<  "RS,";
+        }
+        if ( i & STRAIGHT ) {
+            os  <<  "ST,";
+        }
+        if ( i & THREE_OF_A_KIND ) {
+            os  <<  "3K,";
+        }
+        if ( i & TWO_PAIR ) {
+            os  <<  "2P,";
+        }
+        if ( i & ONE_PAIR ) {
+            os  <<  "1P,";
+        }
+    }
+
     return ( os );
 }
 
