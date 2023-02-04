@@ -343,6 +343,7 @@ showDetail(const ResultTable &table, std::ostream &os)
         if ( i & ONE_PAIR ) {
             os  <<  "1P,";
         }
+        os  <<  std::endl;
     }
 
     return ( os );
@@ -396,6 +397,7 @@ countHandPatterns(
             <<  (counter * 100.0 / numPats)
             <<  " %)\nFinish."  <<  std::endl;
     showCounts(results, strOut) <<  std::endl;
+    strOut  <<  "\nDetails\n";
     showDetail(retCand, strOut) <<  std::endl;
 
     return;
