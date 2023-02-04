@@ -250,6 +250,7 @@ findMaxHand(
         if ( phBest.bestHand < ph ) {
             phBest.bestHand = ph;
         }
+        phBest.candHand = static_cast<PokerHand>(phBest.candHand | ph);
     } while ( comb.generateNext() );
 
     return ( phBest );
