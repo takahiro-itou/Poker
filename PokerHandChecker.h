@@ -41,6 +41,12 @@ enum PokerHand
     ROYAL_FLUSH     = 256,
 };
 
+struct BestPokerHand
+{
+    PokerHand   candHand;       /**<  可能性のある全ての候補。  **/
+    PokerHand   bestHand;       /**<  候補の中で最も高い役。    **/
+};
+
 struct ResultTable
 {
     int counter[512];
