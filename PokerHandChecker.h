@@ -317,6 +317,7 @@ countHandPatterns(
 
     CardPatternGenerator    comb;
     ResultTable             results = { 0 };
+    ResultTable             retCand = { 0 };
 
     int counter = 0;
     int numPats = 1;
@@ -330,6 +331,7 @@ countHandPatterns(
         const  CardPatternBuffer  & buf = comb.getCurrent();
         const  BestPokerHand        bph = findMaxHand(buf, tblCache);
         ++ results.counter[bph.bestHand];
+        ++ retCand.counter[bph.candHand];
         if ( (counter & 65535) == 0 ) {
             strErr  <<  counter <<  " / "
                     <<  numPats
