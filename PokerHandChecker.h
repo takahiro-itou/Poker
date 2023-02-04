@@ -225,7 +225,7 @@ checkHandWithCache(
 **/
 
 template <int R>
-inline  PokerHand
+inline  BestPokerHand
 findMaxHand(
         const int (& cardBuf)[R],
         CacheTable * const  pCache)
@@ -236,9 +236,9 @@ findMaxHand(
     typedef     CombinationGenerator<R, NUM_HAND_CARDS, 0>  Combination;
     typedef     typename  Combination::Pattern              CombPattern;
 
-    PokerHand   phBest  = HICARD;
-    int         work[NUM_HAND_CARDS];
-    Combination comb;
+    BestPokerHand   phBest  = { HICARD, HICARD };
+    int             work[NUM_HAND_CARDS];
+    Combination     comb;
 
     comb.resetGenerator();
     do {
@@ -247,8 +247,8 @@ findMaxHand(
             work[i] = cardBuf[pat[i]];
         }
         PokerHand   ph  = checkHandWithCache(work, pCache);
-        if ( phBest < ph ) {
-            phBest = ph;
+        if ( phBest.bestHand < ph ) {
+            phBest.bestHand = ph;
         }
     } while ( comb.generateNext() );
 
@@ -327,8 +327,8 @@ countHandPatterns(
     do {
         ++ counter;
         const  CardPatternBuffer  & buf = comb.getCurrent();
-        const  PokerHand    ph  = findMaxHand(buf, tblCache);
-        ++  results.counter[ph];
+        const  BestPokerHand        bph = findMaxHand(buf, tblCache);
+        ++ results.counter[bph.bestHand];
         if ( (counter & 65535) == 0 ) {
             strErr  <<  counter <<  " / "
                     <<  numPats
