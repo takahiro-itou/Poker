@@ -21,6 +21,11 @@
 #if !defined( POKER_HANDS_PROB_INCLUDED_POKER_HAND_CHECKER_H )
 #    define   POKER_HANDS_PROB_INCLUDED_POKER_HAND_CHECKER_H
 
+#if !defined( POKER_HANDS_PROB_SYS_INCLUDED_IOMANIP )
+#    include    <iomanip>
+#    define   POKER_HANDS_PROB_SYS_INCLUDED_IOMANIP
+#endif
+
 #if !defined( POKER_HANDS_PROB_SYS_INCLUDED_OSTREAM )
 #    include    <ostream>
 #    define   POKER_HANDS_PROB_SYS_INCLUDED_OSTREAM
@@ -54,6 +59,7 @@ struct ResultTable
 
 constexpr   int     NUM_HAND_CARDS  = 5;
 constexpr   int     NUM_SUITS       = 4;
+constexpr   int     NUM_DISP_DIGIT  = 10;
 
 enum CardNumber {
     ACE     = 0,
@@ -285,17 +291,27 @@ initializeCacheTable()
 inline  std::ostream  &
 showCounts(const ResultTable &table, std::ostream &os)
 {
-    os  <<  "\nRoyal Flush     = "  <<  table.counter[ROYAL_FLUSH]
-        <<  "\nStraight Flush  = "  <<  table.counter[STRAIGHT | FLUSH]
-        <<  "\nFour Of A Kind  = "  <<  table.counter[FOUR_OF_A_KIND]
-        <<  "\nFull House      = "  <<  table.counter[FULL_HOUSE]
-        <<  "\nFlush           = "  <<  table.counter[FLUSH]
-        <<  "\nStraight        = "
+    os  <<  std::right
+        <<  "\nRoyal Flush     = "  <<  std::setw(NUM_DISP_DIGIT)
+        <<  table.counter[ROYAL_FLUSH]
+        <<  "\nStraight Flush  = "  <<  std::setw(NUM_DISP_DIGIT)
+        <<  table.counter[STRAIGHT | FLUSH]
+        <<  "\nFour Of A Kind  = "  <<  std::setw(NUM_DISP_DIGIT)
+        <<  table.counter[FOUR_OF_A_KIND]
+        <<  "\nFull House      = "  <<  std::setw(NUM_DISP_DIGIT)
+        <<  table.counter[FULL_HOUSE]
+        <<  "\nFlush           = "  <<  std::setw(NUM_DISP_DIGIT)
+        <<  table.counter[FLUSH]
+        <<  "\nStraight        = "  <<  std::setw(NUM_DISP_DIGIT)
         <<  table.counter[STRAIGHT]  + table.counter[ROYAL_STRAIGHT]
-        <<  "\nThree Of A Kind = "  <<  table.counter[THREE_OF_A_KIND]
-        <<  "\nTwo Pair        = "  <<  table.counter[TWO_PAIR]
-        <<  "\nOne Pair        = "  <<  table.counter[ONE_PAIR]
-        <<  "\nHi Card         = "  <<  table.counter[HICARD];
+        <<  "\nThree Of A Kind = "  <<  std::setw(NUM_DISP_DIGIT)
+        <<  table.counter[THREE_OF_A_KIND]
+        <<  "\nTwo Pair        = "  <<  std::setw(NUM_DISP_DIGIT)
+        <<  table.counter[TWO_PAIR]
+        <<  "\nOne Pair        = "  <<  std::setw(NUM_DISP_DIGIT)
+        <<  table.counter[ONE_PAIR]
+        <<  "\nHi Card         = "  <<  std::setw(NUM_DISP_DIGIT)
+        <<  table.counter[HICARD];
 
     return ( os );
 }
@@ -311,11 +327,14 @@ showDetail(const ResultTable &table, std::ostream &os)
     constexpr  int  TABLE_SIZE
             = sizeof(table.counter) / sizeof(table.counter[0]);
 
-    for ( int i = 1; i < TABLE_SIZE; ++ i ) {
+    for ( int i = TABLE_SIZE - 1; i >= 1; -- i ) {
         if ( table.counter[i] == 0 ) { continue; }
 
-        os  <<  i   <<  "\t = " <<  table.counter[i]
-            <<  "\t";
+        os  <<  "0x"    <<  std::setfill('0')   <<  std::hex
+            <<  std::setw(4)    <<  i   <<  "\t = "
+            <<  std::setfill(' ')   <<  std::dec
+            <<  std::setw(NUM_DISP_DIGIT)
+            <<  table.counter[i]    <<  "\t";
         if ( i & ROYAL_FLUSH ) {
             os  <<  "RF,";
         }
