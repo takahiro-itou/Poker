@@ -81,6 +81,30 @@ PermutationGenerator<N, R, FIRST>::~PermutationGenerator()
 //    Public Member Functions.
 //
 
+//----------------------------------------------------------------
+//    内部状態をリセットして最初のパターンに戻す。
+//
+
+template <int N, int R, int FIRST>
+inline  void
+PermutationGenerator<N, R, FIRST>::resetGenerator()
+{
+    for ( int i = 0; i < R; ++ i ) {
+        this->m_buf[i]  = FIRST + i;
+    }
+}
+
+//----------------------------------------------------------------
+//    内部状態を更新して次のパターンを生成する。
+//
+
+template <int N, int R, int FIRST>
+inline  bool
+PermutationGenerator<N, R, FIRST>::generateNext()
+{
+    return ( false );
+}
+
 //========================================================================
 //
 //    Accessors.
