@@ -101,6 +101,17 @@ PermutationGenerator<N, R, FIRST>::getCurrent(int (& buf)[K])  const
     }
 }
 
+//----------------------------------------------------------------
+//    現在のパターンを取得する。
+//
+
+template <int N, int R, int FIRST>
+inline  const   typename  PermutationGenerator<N, R, FIRST>::Pattern  &
+PermutationGenerator<N, R, FIRST>::getCurrent()  const
+{
+    return ( this->m_buf );
+}
+
 //========================================================================
 //
 //    Protected Member Functions.
