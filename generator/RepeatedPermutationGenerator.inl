@@ -13,21 +13,21 @@
 *************************************************************************/
 
 /**
-**      An Implementation of PermutationGenerator class.
+**      An Implementation of RepeatedPermutationGenerator class.
 **
-**      @file       PermutationGenerator.inl
+**      @file       RepeatedPermutationGenerator.inl
 **/
 
-#if !defined( POKER_HANDS_PROB_INCLUDED_PERMUTATION_GENERATOR_INL )
-#    define   POKER_HANDS_PROB_INCLUDED_PERMUTATION_GENERATOR_INL
+#if !defined( POKER_HANDS_PROB_INCLUDED_REPEATED_PERMUTATION_GENERATOR_INL )
+#    define   POKER_HANDS_PROB_INCLUDED_REPEATED_PERMUTATION_GENERATOR_INL
 
-#if !defined( POKER_HANDS_PROB_INCLUDED_PERMUTATION_GENERATOR_H )
-#    include    "PermutationGenerator.h"
+#if !defined( POKER_HANDS_PROB_INCLUDED_REPEATED_PERMUTATION_GENERATOR_H )
+#    include    "RepeatedPermutationGenerator.h"
 #endif
 
 //========================================================================
 //
-//    PermutationGenerator  class.
+//    RepeatedPermutationGenerator  class.
 //
 
 //========================================================================
@@ -41,7 +41,7 @@
 //
 
 template <int N, int R, int FIRST>
-PermutationGenerator<N, R, FIRST>::PermutationGenerator()
+RepeatedPermutationGenerator<N, R, FIRST>::RepeatedPermutationGenerator()
     : m_buf()
 {
 }
@@ -52,7 +52,7 @@ PermutationGenerator<N, R, FIRST>::PermutationGenerator()
 //
 
 template <int N, int R, int FIRST>
-PermutationGenerator<N, R, FIRST>::~PermutationGenerator()
+RepeatedPermutationGenerator<N, R, FIRST>::~RepeatedPermutationGenerator()
 {
 }
 
@@ -87,7 +87,7 @@ PermutationGenerator<N, R, FIRST>::~PermutationGenerator()
 
 template <int N, int R, int FIRST>
 inline  void
-PermutationGenerator<N, R, FIRST>::resetGenerator()
+RepeatedPermutationGenerator<N, R, FIRST>::resetGenerator()
 {
     for ( int i = 0; i < R; ++ i ) {
         this->m_buf[i]  = FIRST + i;
@@ -100,7 +100,7 @@ PermutationGenerator<N, R, FIRST>::resetGenerator()
 
 template <int N, int R, int FIRST>
 inline  bool
-PermutationGenerator<N, R, FIRST>::generateNext()
+RepeatedPermutationGenerator<N, R, FIRST>::generateNext()
 {
     return ( false );
 }
@@ -117,7 +117,7 @@ PermutationGenerator<N, R, FIRST>::generateNext()
 template <int N, int R, int FIRST>
 template <int K>
 inline  void
-PermutationGenerator<N, R, FIRST>::getCurrent(int (& buf)[K])  const
+RepeatedPermutationGenerator<N, R, FIRST>::getCurrent(int (& buf)[K])  const
 {
     static_assert(R <= K, "The size of buffer is too small.");
     for ( int i = 0; i < R; ++ i ) {
@@ -130,8 +130,9 @@ PermutationGenerator<N, R, FIRST>::getCurrent(int (& buf)[K])  const
 //
 
 template <int N, int R, int FIRST>
-inline  const   typename  PermutationGenerator<N, R, FIRST>::Pattern  &
-PermutationGenerator<N, R, FIRST>::getCurrent()  const
+inline  const
+typename  RepeatedPermutationGenerator<N, R, FIRST>::Pattern  &
+RepeatedPermutationGenerator<N, R, FIRST>::getCurrent()  const
 {
     return ( this->m_buf );
 }

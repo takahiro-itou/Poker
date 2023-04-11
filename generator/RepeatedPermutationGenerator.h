@@ -13,26 +13,26 @@
 *************************************************************************/
 
 /**
-**      An Interface of PermutationGenerator class.
+**      An Interface of RepeatedPermutationGenerator class.
 **
-**      @file       PermutationGenerator.h
+**      @file       RepeatedPermutationGenerator.h
 **/
 
-#if !defined( POKER_HANDS_PROB_INCLUDED_PERMUTATION_GENERATOR_H )
-#    define   POKER_HANDS_PROB_INCLUDED_PERMUTATION_GENERATOR_H
+#if !defined( POKER_HANDS_PROB_INCLUDED_REPEATED_PERMUTATION_GENERATOR_H )
+#    define   POKER_HANDS_PROB_INCLUDED_REPEATED_PERMUTATION_GENERATOR_H
 
 //  クラスの前方宣言。  //
 
 //========================================================================
 //
-//    PermutationGenerator  class.
+//    RepeatedPermutationGenerator  class.
 //
 /**
 **    順列を生成するクラス。
 **/
 
 template <int N, int R, int FIRST=1>
-class  PermutationGenerator
+class  RepeatedPermutationGenerator
 {
 //========================================================================
 //
@@ -53,14 +53,14 @@ public:
     **  （デフォルトコンストラクタ）。
     **
     **/
-    PermutationGenerator();
+    RepeatedPermutationGenerator();
 
     //----------------------------------------------------------------
     /**   インスタンスを破棄する
     **  （デストラクタ）。
     **
     **/
-    virtual  ~PermutationGenerator();
+    virtual  ~RepeatedPermutationGenerator();
 
 //========================================================================
 //
@@ -152,10 +152,10 @@ private:
 //
 public:
     //  テストクラス。  //
-    friend  class   PermutationGeneratorTest;
+    friend  class   RepeatedPermutationGeneratorTest;
 };
 
 //  Implementation.
-#include    "PermutationGenerator.inl"
+#include    "RepeatedPermutationGenerator.inl"
 
 #endif
