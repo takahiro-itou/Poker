@@ -90,7 +90,7 @@ inline  void
 RepeatedPermutationGenerator<N, R, FIRST>::resetGenerator()
 {
     for ( int i = 0; i < R; ++ i ) {
-        this->m_buf[i]  = FIRST + i;
+        this->m_buf[i]  = FIRST;
     }
 }
 
@@ -102,6 +102,14 @@ template <int N, int R, int FIRST>
 inline  bool
 RepeatedPermutationGenerator<N, R, FIRST>::generateNext()
 {
+    int pos;
+    for ( pos = R; pos >= 1; -- pos ) {
+        if ( (++ this->m_buf[pos - 1]) < FIRST + N ) {
+            return ( true );
+        }
+        this->m_buf[pos - 1] = FIRST;
+    }
+
     return ( false );
 }
 
