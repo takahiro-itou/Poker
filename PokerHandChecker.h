@@ -21,6 +21,10 @@
 #if !defined( POKER_HANDS_PROB_INCLUDED_POKER_HAND_CHECKER_H )
 #    define   POKER_HANDS_PROB_INCLUDED_POKER_HAND_CHECKER_H
 
+#if !defined( POKER_HANDS_PROB_INCLUDED_COMBINATION_GENERATOR_H )
+#    include    "generator/CombinationGenerator.h"
+#endif
+
 #if !defined( POKER_HANDS_PROB_SYS_INCLUDED_IOMANIP )
 #    include    <iomanip>
 #    define   POKER_HANDS_PROB_SYS_INCLUDED_IOMANIP
