@@ -132,8 +132,8 @@ generateNext() を呼び出すごとに次のパターンを生成する。
 つまり、一番下の位をインクリメントすればよく、
 それが N を超えた時は、繰り上がりの処理を行えばよい。
 
-- [初期化](RepeatedPermutationGenerator.inl#92] は、11...1 になるように行う。
-- [更新][RepeatedPermutationGenerator.inl#105] は
+- [初期化](RepeatedPermutationGenerator.inl#92) は、11...1 になるように行う。
+- [更新](RepeatedPermutationGenerator.inl#105) は
     - 一番下の位に +1 する (Line 107)
     - 繰り上がりがなければ終了 (Line 108)
     - 繰り上がったら、その位を 1 に戻して(Line 110)、次の位へループする。
