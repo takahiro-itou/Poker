@@ -124,12 +124,12 @@ generateNext() を呼び出すごとに次のパターンを生成する。
 
 ###  重複順列
 
-- コード (RepeatedPermutationGenerator.inl)
+- [コード](RepeatedPermutationGenerator.inl)
 
 ###  組み合わせ
 
 
-- コード (CombinationGenerator.inl)
+- [コード](CombinationGenerator.inl)
 
 ###  順列
 
