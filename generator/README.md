@@ -152,7 +152,7 @@ generateNext() を呼び出すごとに次のパターンを生成する。
 （0-オリジンか1-オリジンかで微妙に数式が変わることに注意）。
 
 - [初期化](CombinationGenerator.inl#L88) は 123..R となるように行う。
-- [更新](CombinationGenerator.inl#101) は
+- [更新](CombinationGenerator.inl#L101) は
     - 一番下 (右) の位に +1 する (Line 108)
         - これがその位の最大値を超えない場合はループを終了する (Line 109)
         - そうでなければ、次の位に移動して同様にインクリメントを試みる
